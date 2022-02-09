@@ -10,7 +10,7 @@ hook OnGameModeInit()
 	mHandle = mysql_connect("localhost", "root", "", "sa-mp", optionID);
 	
 	// In case of connection failure, we send a message and close it.
-    if(mHandle == MYSQL_INVALID_HANDLE || mysql_errno(mHandle) != 0)
+	if(mHandle == MYSQL_INVALID_HANDLE || mysql_errno(mHandle) != 0)
 	{
 		print("MySQL connection failed.");
 		return SendRconCommand("exit");
@@ -25,7 +25,7 @@ hook OnGameModeInit()
 hook OnGameModeExit()
 {
 	// We make the players look like they are out of the game in order not to lose the record in case of a crash.
-    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -34,7 +34,7 @@ hook OnGameModeExit()
 	}
 
 	// We close the MySQL connection.
-    mysql_close(mHandle);
+	mysql_close(mHandle);
 
     return 1;
 }
