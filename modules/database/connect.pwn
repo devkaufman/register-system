@@ -36,5 +36,5 @@ hook OnGameModeExit()
 	// We close the MySQL connection.
 	mysql_close(mHandle);
 
-    return 1;
+    return 1; 
 }
