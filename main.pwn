@@ -1,5 +1,5 @@
 /*
-
+ 
     This game mode coded by kaufman (https://github.com/devkaufman)
      - Starting Date: 09.02.2002
      - End Date: 00.00.0000
