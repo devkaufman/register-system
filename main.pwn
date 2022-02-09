@@ -1,5 +1,5 @@
 /*
- 
+
     This game mode coded by kaufman (https://github.com/devkaufman)
      - Starting Date: 09.02.2002
      - End Date: 00.00.0000
@@ -23,16 +23,13 @@
 #pragma warning disable 239, 214, 217
 
 // Cores of the MySQL system
+#include "./modules/database/variables.pwn"
 #include "./modules/database/connect.pwn"
 
 // Cores of the accounts
 #include "./modules/account/variables.pwn"
 #include "./modules/account/callbacks.pwn"
 #include "./modules/account/functions.pwn"
-
-// Cores of the admin system
-#include "./modules/admin/variables.pwn"
-#include "./modules/admin/commands.pwn"
 
 main() { }
 
