@@ -1,59 +1,59 @@
 showLoginDialog(playerid)
 {
-    inline Login(pid, dialogid, response, listitem, string: inputtext[])
-    {
-        #pragma unused pid, dialogid, response, listitem, inputtext
+	inline Login(pid, dialogid, response, listitem, string: inputtext[])
+	{
+		#pragma unused pid, dialogid, response, listitem, inputtext
 
-        // If the "Esc" key is pressed during the login dialog, we do not kick the player.
-        if(!response) return Kick(playerid);
+		// If the "Esc" key is pressed during the login dialog, we do not kick the player.
+		if(!response) return Kick(playerid);
         
-        // We are reworking the encrypted password for testing purposes.
-        new hash[64 + 1];
-        SHA256_PassHash(inputtext, AccountInfo[playerid][Salt], hash, sizeof(hash));
+		// We are reworking the encrypted password for testing purposes.
+		new hash[64 + 1];
+		SHA256_PassHash(inputtext, AccountInfo[playerid][Salt], hash, sizeof(hash));
 
-        // Is the entered password correct?
-        if(strcmp(hash, AccountInfo[playerid][Password]) == 0)
-        {
-            // We load the user's data.
-            cache_get_value_int(0, "id", AccountInfo[playerid][ID]);
-            cache_get_value_int(0, "money", AccountInfo[playerid][Money]);
+		// Is the entered password correct?
+		if(strcmp(hash, AccountInfo[playerid][Password]) == 0)
+		{
+			// We load the user's data.
+			cache_get_value_int(0, "id", AccountInfo[playerid][ID]);
+			cache_get_value_int(0, "money", AccountInfo[playerid][Money]);
 
-            // We eliminate the time because the login was successful.
-            KillTimer(AccountInfo[playerid][loginTimer]);
-            AccountInfo[playerid][loginTimer] = 0;
+			// We eliminate the time because the login was successful.
+			KillTimer(AccountInfo[playerid][loginTimer]);
+			AccountInfo[playerid][loginTimer] = 0;
 
-            // We are sending an information message.
-            SendClientMessage(playerid, 0xFF00FF00, "[w-REG] {FFFFFF}Giriþ baþarýyla tamamlandý, verileriniz yüklendi.");
-        }
-        else
-        {
-            // We show the dialog again because the password was entered incorrectly.
-            showLoginDialog(playerid);
+  			// We are sending an information message.
+  			SendClientMessage(playerid, 0xFF00FF00, "[w-REG] {FFFFFF}GiriÃ¾ baÃ¾arÃ½yla tamamlandÃ½, verileriniz yÃ¼klendi.");
+ 		}
+		else
+		{
+			// We show the dialog again because the password was entered incorrectly.
+			showLoginDialog(playerid);
             
-            // We send an information message that an incorrect password has been entered.
-            SendClientMessage(playerid, 0xFF00FF00, "[w-REG] {FFFFFF}Eksik veya yanlýþ bir þifre girdiniz.");
+			// We send an information message that an incorrect password has been entered.
+			SendClientMessage(playerid, 0xFF00FF00, "[w-REG] {FFFFFF}Eksik veya yanlÃ½Ã¾ bir Ã¾ifre girdiniz.");
 
-            // We're increasing the user's login attempt.
-            AccountInfo[playerid][loginAttemps]++;
+			// We're increasing the user's login attempt.
+			AccountInfo[playerid][loginAttemps]++;
 
-            // When the wrong login attempt reaches 3, we kick the user.
-            if(AccountInfo[playerid][loginAttemps] >= 3)
-            {
-                delayedKick(playerid, "Hatalý þifre denemesi aþýmý");
-            }
-        }
+			// When the wrong login attempt reaches 3, we kick the user.
+			if(AccountInfo[playerid][loginAttemps] >= 3)
+			{
+				delayedKick(playerid, "HatalÃ½ Ã¾ifre denemesi aÃ¾Ã½mÃ½");
+			}
+		}
 
-    }
+	}
 
-    // If there is no reaction within 60 seconds when the login dialog appears, we direct it to the OnLoginTimeout callback.
-    AccountInfo[playerid][loginTimer] = SetTimerEx("OnLoginTimeout", 6 * 1000, false, "i", playerid);
+	// If there is no reaction within 60 seconds when the login dialog appears, we direct it to the OnLoginTimeout callback.
+	AccountInfo[playerid][loginTimer] = SetTimerEx("OnLoginTimeout", 6 * 1000, false, "i", playerid);
 
-    // Login dialog (written using y_dialog include.)
-    new string[230 + MAX_PLAYER_NAME];
-    format(string, sizeof(string), "{FFFFFF}Hoþ geldin {00FF00}%s{FFFFFF},\n\
-    veri tabanýnda kulanýcý ismine rastladýk. Giriþ yapmak için aþaðýdaki kutucuða þifreni girmelisin.\n\n\
-    \t{0000FF}- {FFFFFF}Þifrenizi unuttuysanýz www.bilmemne.com üzerinden bildirebilirsiniz.", returnPlayerName(playerid));
-    Dialog_ShowCallback(playerid, using inline Login, DIALOG_STYLE_PASSWORD, "Giriþ Yap", string, "Giriþ", "Çýkýþ");
+	// Login dialog (written using y_dialog include.)
+	new string[230 + MAX_PLAYER_NAME];
+	format(string, sizeof(string), "{FFFFFF}HoÃ¾ geldin {00FF00}%s{FFFFFF},\n\
+    veri tabanÄ±nda kulanÄ±cÄ± ismine rastladÄ±k. GiriÅŸ yapmak iÃ§in aÅŸaÄŸÄ±daki kutucuÄŸa ÅŸifreni girmelisin.\n\n\
+    \t{0000FF}- {FFFFFF}Åžifrenizi unuttuysanÄ±z www.bilmemne.com Ã¼zerinden bildirebilirsiniz."returnPlayerName(playerid));
+	Dialog_ShowCallback(playerid, using inline Login, DIALOG_STYLE_PASSWORD, "GiriÅŸ Yap, string, "GiriÅŸ", "Ã‡Ä±kÄ±ÅŸ");
 
     return 1;
 }
@@ -71,7 +71,7 @@ showRegisterDialog(playerid)
         if(strlen(inputtext) < 8)
         {
             showRegisterDialog(playerid);
-            SendClientMessage(playerid, 0xFF00FF00, "[w-REG] {FFFFFF}Girdiðiniz þifre en az 8 karakter uzunluðunda olmalýdýr.");
+            SendClientMessage(playerid, 0xFF00FF00, "[w-REG] {FFFFFF}GirdiÃ°iniz Ã¾ifre en az 8 karakter uzunluÃ°unda olmalÃ½dÃ½r.");
         }
         else
         {
@@ -89,12 +89,12 @@ showRegisterDialog(playerid)
     // Register dialog (written using y_dialog include.)
     new string[340 + MAX_PLAYER_NAME];
     format(string, sizeof(string),
-    "{FFFFFF}Hoþ geldin {00FF00}%s{FFFFFF},\n\
-    veri tabanýnda kullanýcý ismine rastlanmadý. Kayýt olmak için aþaðýdaki kutucuða þifre girmelisin.\n\n\
-    \t{0000FF}- {FFFFFF}Gireceðiniz þifre en az 8 karakter içermelidir.\n\
-    \t{0000FF}- {FFFFFF}Þifrenizi not etmeyi ihmal etmeyiniz.\n\
-    \t{0000FF}- {FFFFFF}Þifrenizi yetkililer dahil kimseyle paylaþmayýnýz.", returnPlayerName(playerid));
-    Dialog_ShowCallback(playerid, using inline Register, DIALOG_STYLE_PASSWORD, "Kayýt Ol", string, "Kayýt", "Çýkýþ");
+    "{FFFFFF}HoÃ¾ geldin {00FF00}%s{FFFFFF},\n\
+    veri tabanÃ½nda kullanÃ½cÃ½ ismine rastlanmadÃ½. KayÃ½t olmak iÃ§in aÃ¾aÃ°Ã½daki kutucuÃ°a Ã¾ifre girmelisin.\n\n\
+    \t{0000FF}- {FFFFFF}GireceÃ°iniz Ã¾ifre en az 8 karakter iÃ§ermelidir.\n\
+    \t{0000FF}- {FFFFFF}Ãžifrenizi not etmeyi ihmal etmeyiniz.\n\
+    \t{0000FF}- {FFFFFF}Ãžifrenizi yetkililer dahil kimseyle paylaÃ¾mayÃ½nÃ½z.", returnPlayerName(playerid));
+    Dialog_ShowCallback(playerid, using inline Register, DIALOG_STYLE_PASSWORD, "KayÃ½t Ol", string, "KayÃ½t", "Ã‡Ã½kÃ½Ã¾");
 
     return 1;
 }
