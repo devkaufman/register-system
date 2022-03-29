@@ -46,7 +46,7 @@ showLoginDialog(playerid)
 	}
 
 	// If there is no reaction within 60 seconds when the login dialog appears, we direct it to the OnLoginTimeout callback.
-	AccountInfo[playerid][loginTimer] = SetTimerEx("OnLoginTimeout", 6 * 1000, false, "i", playerid);
+	AccountInfo[playerid][loginTimer] = SetTimerEx("OnLoginTimeout", 6 * 10000, false, "i", playerid);
 
 	// Login dialog (written using y_dialog include.)
 	new string[230 + MAX_PLAYER_NAME];
